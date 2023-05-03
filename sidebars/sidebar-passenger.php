@@ -45,13 +45,13 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="../reg_inserts/register-passenger.php">
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="../reg_inserts/register-car.php">
                     <i class="bi bi-people"></i>
                     <span>Car Registration</span>
                 </a>
             </li>
-
+            <!--
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../reg_inserts/registered-cars.php">
                     <i class="bi bi-people"></i>

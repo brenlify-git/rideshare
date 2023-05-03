@@ -35,7 +35,7 @@ include '../config/connection.php';
     <img src="../assets/img/Logo Only.png" alt="">
     <span class="d-none d-lg-block">RideShare <i class="bi bi-car-front-fill"></i></span>
   </a>
-  <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+  <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
 
@@ -52,8 +52,8 @@ include '../config/connection.php';
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6><?php echo $_SESSION['admin_username']; ?></h6>
-          <span><?php echo $_SESSION['email']; ?><br><?php echo $_SESSION['admin_type']; ?></span>
+          <h4><?php echo $_SESSION['userID']; ?></h4>
+          <span><?php echo $_SESSION['email']; ?><br><?php echo $_SESSION['Patron_Type']; ?></span>
         </li>
         <li>
           <hr class="dropdown-divider">
@@ -64,21 +64,14 @@ include '../config/connection.php';
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+          <a class="dropdown-item d-flex align-items-center" href="../config/userprofile-passenger.php">
             <i class="bi bi-gear"></i>
             <span>Account Settings</span>
           </a>
         </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
+       
 
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="about.php">
-            <i class="bi bi-question-circle"></i>
-            <span>About</span>
-          </a>
-        </li>
+        
         <li>
           <hr class="dropdown-divider">
         </li>
@@ -99,16 +92,16 @@ include '../config/connection.php';
 </header><!-- End Header -->
 
  <!-- Vendor JS Files -->
- <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+ <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../assets/vendor/quill/quill.min.js"></script>
+  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/js/main.js"></script>
 </body>
 </html>

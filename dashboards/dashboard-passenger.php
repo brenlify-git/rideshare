@@ -65,6 +65,8 @@ include '../config/connection.php';
 
         </div><!-- End Right side columns -->
 
+        <button class="btn btn-success"> Register Car</button>
+
       </div>
     </section>
 

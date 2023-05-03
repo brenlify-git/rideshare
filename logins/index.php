@@ -121,6 +121,8 @@ include '../config/connection.php';
 			$_SESSION['lastName'] = $row['lastName'];
 			$_SESSION['userID'] = $row['userID'];
 			$_SESSION['email'] = $row['email'];
+			$_SESSION['messageResult'] = '';
+
 			header("Location:../dashboards/dashboard-passenger.php");
 		}
 		else if(is_array($row2)){
@@ -128,7 +130,7 @@ include '../config/connection.php';
 			$_SESSION['passenger_password'] = $row2['password'];
 			$_SESSION['Patron_Type'] = $row2['userType'];
 			$_SESSION['userID'] = $row2['userID'];
-			header("Location:dashboard.php");
+			header("Location:../dashboards/dashboard.php");
 		}
 		else{
 			$_SESSION['unameused'] = $Username;
