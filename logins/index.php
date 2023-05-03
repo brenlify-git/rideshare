@@ -35,6 +35,8 @@ include '../config/connection.php';
 <body>
 
 
+
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -68,7 +70,16 @@ include '../config/connection.php';
 						</span>
 					</div>
 
-				
+					<div class="text-center" style="color:#345ba3">
+					<?php
+						echo $_SESSION['messageLogin'];
+					?>
+                    </div>
+
+					<?php
+						$_SESSION['messageLogin'] = '';
+					?>
+
 				
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit" name="login" >
@@ -122,7 +133,7 @@ include '../config/connection.php';
 			$_SESSION['userID'] = $row['userID'];
 			$_SESSION['email'] = $row['email'];
 			$_SESSION['messageResult'] = '';
-
+			$_SESSION['messageLogin'] = 'Successfully Logged Out!';
 			header("Location:../dashboards/dashboard-passenger.php");
 		}
 		else if(is_array($row2)){
@@ -134,13 +145,13 @@ include '../config/connection.php';
 		}
 		else{
 			$_SESSION['unameused'] = $Username;
-			header("Location:indexError.php");
+			$_SESSION['messageLogin'] = "Invalid login credentials, try again!";
+			header("Location:index.php");
+			
 		}
 		
 	}
 ?>
-
-
 
 	</div>
 	</div>

@@ -77,7 +77,7 @@ include '../config/connection.php';
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="logout.php">
+          <a class="dropdown-item d-flex align-items-center" href="../config/logout.php">
             <i class="bi bi-box-arrow-right"></i>
             <span> Sign Out </a></span>
           </a>
