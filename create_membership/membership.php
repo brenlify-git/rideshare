@@ -1,8 +1,9 @@
 <?php 
+session_start();
+include '../config/connection.php';
 
-include 'connection.php';
 
-$sql = "SELECT * FROM user";
+$sql = "SELECT * FROM user INNER JOIN car_description ON car_description.userID = user.userID WHERE verifyCarStatus = '' AND userType = 'Passenger' OR userType = 'Driver'";
 
 $id = $conn->query($sql);
 
@@ -16,67 +17,53 @@ $id = $conn->query($sql);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>InFuse | Patron Membership</title>
+  <title>RideSharer | Membership</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/logo.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../assets/img/logo.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/table.css">
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/table.css">
 
   <style>
+    button {
+      --width: 200px;
+      --timing: 2s;
+      border: 0;
+      width: var(--width);
+      padding-block: 1em;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1em;
+      background: rgb(0, 116, 189);
+      transition: all 0.2s;
+      border-radius: 3px;
+      margin: 20px;
+    }
 
-        button {
-            --width: 200px;
-            --timing: 2s;
-            border: 0;
-            width: var(--width);
-            padding-block: 1em;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1em;
-            background: rgb(0, 116, 189);
-            transition: all 0.2s;
-            border-radius: 3px;
-            margin: 20px;
-        }
-        .decline{
-          background: rgb(244, 77, 115);
-        }
-        .buttons{
-          margin: 10px;
-         border-radius: 10px;
-        }
-
-        button:hover {
-            background-image: linear-gradient(to right, rgb(250, 82, 82), rgb(250, 82, 82) 16.65%, rgb(190, 75, 219) 16.65%, rgb(190, 75, 219) 33.3%, rgb(76, 110, 245) 33.3%, rgb(76, 110, 245) 49.95%, rgb(64, 192, 87) 49.95%, rgb(64, 192, 87) 66.6%, rgb(250, 176, 5) 66.6%, rgb(250, 176, 5) 83.25%, rgb(253, 126, 20) 83.25%, rgb(253, 126, 20) 100%, rgb(250, 82, 82) 100%);
-            animation: var(--timing) linear dance6123 infinite;
-            transform: scale(1.1) translateY(-1px);
-        }
-
-        @keyframes dance6123 {
-            to {
-                background-position: var(--width);
-            }
-        }
-    </style>
+    .require {
+      color: red;
+    }
+  </style>
 
 </head>
 
@@ -84,12 +71,12 @@ $id = $conn->query($sql);
 
   <!-- ======= Sidebar and Header ======= -->
 
-  <?php include 'headerbar.php';?>
-  <?php include 'sidebar.php';?>
+  <?php include '../headerbars/headerbar.php';?>
+  <?php include '../sidebars/sidebar.php';?>
 
   <!-- End Sidebar and Header-->
 
-  
+
 
   <main id="main" class="main">
 
@@ -103,6 +90,21 @@ $id = $conn->query($sql);
       </nav>
     </div><!-- End Page Title -->
 
+
+
+<?php
+
+if(isset($_SESSION['CarRegistrationStatus'])){
+?>
+
+<div class="alert alert-danger">
+    <?= $_SESSION['CarRegistrationStatus']; ?>
+</div>
+<?php
+unset($_SESSION['CarRegistrationStatus']);
+}
+?>
+
     <section class="section">
       <div class="row">
         <div class="col-lg-6">
@@ -113,94 +115,182 @@ $id = $conn->query($sql);
 
 
               <!-- Multi Columns Form -->
-              <form class="row g-3" action="validate-patrons.php" method="post">
-                
-              <div class="col-md-6">
+              <form class="row g-3" action="../reg_inserts/car-registration.php" method="post">
+
+                <div class="col-md-12">
                   <label for="inputEmail5" class="form-label">Registration ID</label>
-                  <input type="number" class="form-control"  maxlength="11" id="regID" name="regID" required>
+                  <input type="number" class="form-control" maxlength="11" id="regID" name="userID" required>
                 </div>
-                <div class="col-md-6">
-                  <label for="inputEmail5" class="form-label">Student ID</label>
-                  <input type="text" class="form-control" pattern="[0-9]{4}-[0-9]{6}" maxlength="11" title="Format should be like this: 2021-160099" id="studID" name="studID" required>
-                </div>
+
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="firstName" name="firstName" required>
+                  <input type="text" class="form-control" id="firstName" placeholder="Juan" name="firstName" required>
                 </div>
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Middle Name</label>
-                  <input type="text" class="form-control" id="middleName" name="middleName" required>
+                  <input type="text" class="form-control" id="middleName" placeholder="Santos" name="middleName"
+                    required>
                 </div>
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="lastName" name="lastName" required>
+                  <input type="text" class="form-control" id="lastName" placeholder="Dela Cruz" name="lastName"
+                    required>
                 </div>
-                <div class="col-md-6">
-                  <label class="col-sm-7 form-label">Patron Type</label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" id="patronType" name="patronType" required>
-                    <option value="PATRON">Patron</option>
-                   
-                    </select>
-                  </div>
-                </div>
+
                 <div class="col-md-6">
                   <label for="inputPassword5" class="form-label">Contact Number</label>
-                  <input type="text" class="form-control" id="contactNumber" pattern="[0-9]{11}" maxlength="11" name="contactNumber" required>
+                  <input type="text" class="form-control" id="contactNumber" placeholder="09770191818"
+                    pattern="09[0-9]{9}" maxlength="11" name="contactNumber" required>
                 </div>
+
                 <div class="col-md-6">
-                  <label class="col-sm-7 form-label">Department</label>
+                  <label for="inputPassword5" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="email" placeholder="juandelacruz@gmail.com" name="email">
+                </div>
+
+
+                <div class="col-md-3">
+                  <label for="inputAddress5" class="form-label">Street</label>
+                  <input type="text" class="form-control" id="street" placeholder="Adamya" name="street" required>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputAddress5" class="form-label">Barangay</label>
+                  <input type="text" class="form-control" id="barangay" placeholder="Caniogan" name="barangay" required>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputAddress5" class="form-label">Municipality</label>
+                  <input type="text" class="form-control" id="municipality" placeholder="Baliwag City"
+                    name="municipality" required>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputAddress5" class="form-label">Province</label>
+                  <input type="text" class="form-control" id="province" placeholder="Bulacan" name="province" required>
+                </div>
+
+                <h5 class="card-title" style="margin-top: 6px; margin-bottom:-10px">Account Verification</h5>
+                <div class="col-md-6">
+                  <label class="col-sm-7 form-label">ID Type</label>
                   <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" id="department" name="department" required>
-                    <option disabled value="College of Accountancy, Business and Management">College of Accountancy, Business and Management</option>
-                      <option value="BS Accountancy">BS Accountancy</option>
-                      <option value="BS Accounting Information System">BS Accounting Information System</option>
-                      <option value="BS Business Administration in Financial Management">BS Business Administration in Financial Management</option>
-                      <option value="BS Business Administration in Marketing Management">BS Business Administration in Marketing Management</option>
-                      <option value="BS Hospitality Management">BS Hospitality Management</option>
-                      <option value="BS Tourism Management">BS Tourism Management</option>
-                      <option disabled value="College of Arts and Sciences">College of Arts and Sciences</option>
-                      <option value="BS Psychology">BS Psychology</option>
-                      <option value="Bachelor in Physical Education">Bachelor in Physical Education</option>
-                      <option value="Certificate of Professional Education">Certificate of Professional Education</option>
-                      <option disabled value="College of Engineering and Technology">College of Engineering and Technology</option>
-                      <option value="BS Architecture">BS Architecture</option>
-                      <option value="BS Civil Engineering">BS Civil Engineering</option>
-                      <option value="BS Computer Engineering">BS Computer Engineering</option>
-                      <option value="BS Information Technology">BS Information Technology</option>
-                      <option disabled value="Graduate Studies">Graduate Studies</option>
-                      <option value="Doctors of Education Major in Educational Management">Doctors of Education Major in Educational Management</option>
-                      <option value="Master of Education Major in Educational Management">Master of Education Major in Educational Management</option>
-                      <option value="Master of Education Major in Special Education">Master of Education Major in Special Education</option>
-                      <option value="Master in Management">Master in Management</option>
+                    <select class="form-select" aria-label="Default select example" onchange="enableIdNumber()"
+                      name="idType" required id="idType">
+                      <option value="invalid">-- Select --</option>
+                      <option value="UMID">UMID</option>
+                      <option value="Driver's License">Driver's License</option>
+                      <option value="Professional Regulation Commission (PRC) ID">Professional Regulation Commission
+                        (PRC) ID</option>
+                      <option value="Passport">Passport</option>
+                      <option value="Social Security System">Social Security System</option>
+                      <option value="National ID">National ID</option>
+                      <option value="Pag-ibig ID">Pag-ibig ID</option>
+                      <option value="Postal ID">Postal ID</option>
+                      <option value="Phil-health ID">Phil-health ID</option>
+                      <option value="Government Issued ID">Government Issued ID</option>
                     </select>
                   </div>
                 </div>
+
+
                 <div class="col-md-6">
-                  <label for="inputPassword5" class="form-label">Section</label>
-                  <input type="text" class="form-control" id="section" name="section" required>
+                  <label for="inputAddress5" class="form-label">ID Number</label>
+                  <input type="text" class="form-control" id="idNumber" placeholder="0000-000-0000" name="idNumber"
+                    disabled required>
                 </div>
-                <div class="col-md-6">
-                  <label for="inputAddress5" class="form-label">Street</label>
-                  <input type="text" class="form-control" id="street" placeholder="William Shakespeare" name="street" required>
+
+                <h5 class="card-title" style="margin-top: 6px; margin-bottom:-10px"> Car Details</h5>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label">Car Color <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="carColor" name="carColor" value="" required>
                 </div>
-                <div class="col-md-6">
-                  <label for="inputAddress5" class="form-label">Barangay</label>
-                  <input type="text" class="form-control" id="barangay" placeholder="William Shakespeare" name="barangay" required>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label">Car Model <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="carModel" name="carModel" value="" required>
                 </div>
-                <div class="col-md-6">
-                  <label for="inputAddress5" class="form-label">Municipality</label> 
-                  <input type="text" class="form-control" id="municipality" placeholder="Book Shelf Inc." name="municipality" required>
+
+
+                <div class="col-md-4">
+                  <label class="col-sm-7 form-label">Car Type <span class="require">*</span></label>
+                  <div class="col-sm-12">
+                    <select class="form-select" aria-label="Default select example" name="carType" id="carType"
+                      required>
+                      <option value="SUV">SUV</option>
+                      <option value="Coupe">Coupe</option>
+                      <option value="Crossover">Crossover</option>
+                      <option value="Compact">Compact</option>
+                      <option value="Pickup Truck">Pickup Truck</option>
+                      <option value="Grand Tourer">Grand Tourer</option>
+                      <option value="Hatchback">Hatchback</option>
+                      <option value="Station Wagon">Station Wagon</option>
+                      <option value="Minivan">Minivan</option>
+                      <option value="Van">Van</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <label for="inputAddress5" class="form-label">Province</label>
-                  <input type="text" class="form-control" id="province" placeholder="Book Shelf Inc." name="province" required>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label"> Car Manufacturer <span
+                      class="require">*</span></label>
+                  <input type="text" class="form-control" id="manufacturer" name="manufacturer" value="" required>
                 </div>
-              
-               
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label"> Car Engine No <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="engineNo" name="engineNo" value="" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label"> Car Chasis No <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="chasisNo" name="chasisNo" value="" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label"> Car Year Manufactured <span
+                      class="require">*</span></label>
+                  <input type="date" class="form-control" id="yearManufactured" name="yearManufactured"
+                    value="<?php echo isset($_POST['yearManufactured']) ? $_POST['yearManufactured'] : ''; ?>" required>
+                </div>
+
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label"> Car Category <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="category" name="carCategory" value="" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="col-sm-7 form-label">Car Fuel Type <span class="require">*</span></label>
+                  <div class="col-sm-12">
+                    <select class="form-select" aria-label="Default select example" name="fuelType" id="fuelType"
+                      required>
+                      <option value="Gasoline">Gasoline</option>
+                      <option value="Diesel">Diesel</option>
+                      <option value="Bio-diesel">Bio-diesel</option>
+                      <option value="Ethanol">Ethanol</option>
+                      <option value="E85">E85</option>
+                      <option value="Methanol">Methanol</option>
+                      <option value="Electric">Electric</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label">Seat Capacity <span class="require">*</span></label>
+                  <input type="number" class="form-control" id="seatCapacity" min="1" max="16" name="seatCapacity"
+                    value="" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label">Plate Number <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="plateNumber" name="plateNumber" value="" required>
+                </div>
+
+
                 <div class="text-center buttonsResponse">
-                  <button type="submit" class="buttons" name="accept">+ Accept Registration</button>
-                  <button type="submit" class="buttons decline" name="decline">- Decline Registration</button>
+                  <button type="submit" class="btn btn-primary" id="accept-button" name="accept">+ Accept
+                    Registration</button>
+                  <button type="submit" class="btn btn-success" name="decline">- Decline Registration</button>
                 </div>
               </form><!-- End Multi Columns Form -->
 
@@ -214,71 +304,96 @@ $id = $conn->query($sql);
 
           <!-- table starts here -->
 
-          <div class="card"> 
-                  <div class="card-body">
-                
-                    <h2 class="card-title ">Patron's Membership Request | <span>Subject to approval</span></h2>
+          <div class="card">
+            <div class="card-body">
+
+              <h2 class="card-title ">Patron's Membership Request | <span>Subject to approval</span></h2>
 
 
-                    <form name="excel.php" method="post">
+              <form name="excel.php" method="post">
 
-                    <div class="overflow-auto mt-4">
-                  
-                    <!-- Table with stripped rows -->
-                    <table class="table table-hover table-bordered text-nowrap text-center" style="max-height: 695px; overflow: auto; display: inline-block;" id="table">
-                <thead class="table-dark" style="position:sticky; top: 0 ;">
-                    <tr>
-                     
-                      <th scope="col">Student ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Middle Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">User Type</th>
-                      <th scope="col">Contact Number</th>
-                      <th scope="col">Department</th>
-                      <th scope="col">Section</th>
-                      <th scope="col">Street</th>
-                      <th scope="col">Barangay</th>
-                      <th scope="col">Municipality</th>
-                      <th scope="col">Province</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <div class="overflow-auto mt-4">
 
-                    <?php
+                  <!-- Table with stripped rows -->
+                  <table class="table table-hover table-bordered text-nowrap text-center"
+                    style="max-height: 695px; overflow: auto; display: inline-block;" id="table">
+                    <thead class="table-dark" style="position:sticky; top: 0 ;">
+                      <tr>
+
+                        <th scope="col">User ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Middle Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">ID Type</th>
+                        <th scope="col">ID Number</th>
+                        <th scope="col">Car Color</th>
+                        <th scope="col">Car Model</th>
+                        <th scope="col">Car Type</th>
+                        <th scope="col">Manufacturer</th>
+                        <th scope="col">Engine Number</th>
+                        <th scope="col">Chasis Number</th>
+                        <th scope="col">Year Manufactured</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Fuel Type</th>
+                        <th scope="col">Car Seat Capacity</th>
+                        <th scope="col">Plate Number</th>
+                        <th scope="col">Street</th>
+                        <th scope="col">Barangay</th>
+                        <th scope="col">Municipality</th>
+                        <th scope="col">Province</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <?php
                   while($tbl_patrons = mysqli_fetch_assoc($id)):   
 
                     
                 ?>
-                    <tr>
-                      
-                      <td><?= $tbl_patrons['userID'];?></td>
-                      <td><?= $tbl_patrons['firstName'];?></td>
-                      <td><?= $tbl_patrons['middleName'];?></td>
-                      <td><?= $tbl_patrons['lastName'];?></td>
-                      <td><?= $tbl_patrons['Patron_Type'];?></td>
-                      <td><?= $tbl_patrons['Contact_Number'];?></td>
-                      <td><?= $tbl_patrons['Department'];?></td>
-                      <td><?= $tbl_patrons['Section'];?></td>
-                      <td><?= $tbl_patrons['Street'];?>
-                      <td><?= $tbl_patrons['Barangay'];?></td>
-                      <td><?= $tbl_patrons['Municipality'];?></td>
-                      <td><?= $tbl_patrons['Province'];?> </td></td>
-                 
-                    </tr>
+                      <tr>
+
+                        <td><?= $tbl_patrons['userID'];?></td>
+                        <td><?= $tbl_patrons['firstName'];?></td>
+                        <td><?= $tbl_patrons['middleName'];?></td>
+                        <td><?= $tbl_patrons['lastName'];?></td>
+                        <td><?= $tbl_patrons['contactNumber'];?></td>
+                        <td><?= $tbl_patrons['email'];?></td>
+                        <td><?= $tbl_patrons['idType'];?></td>
+                        <td><?= $tbl_patrons['idNumber'];?></td>
+                        <td><?= $tbl_patrons['carColor'];?></td>
+                        <td><?= $tbl_patrons['carModel'];?></td>
+                        <td><?= $tbl_patrons['carType'];?></td>
+                        <td><?= $tbl_patrons['manufacturer'];?></td>
+                        <td><?= $tbl_patrons['engineNo'];?></td>
+                        <td><?= $tbl_patrons['chasisNo'];?></td>
+                        <td><?= $tbl_patrons['yearManufactured'];?></td>
+                        <td><?= $tbl_patrons['category'];?></td>
+                        <td><?= $tbl_patrons['fuelType'];?></td>
+                        <td><?= $tbl_patrons['carSeatCapacity'];?></td>
+                        <td><?= $tbl_patrons['plateNumber'];?></td>
+                        <td><?= $tbl_patrons['street'];?>
+                        <td><?= $tbl_patrons['barangay'];?></td>
+                        <td><?= $tbl_patrons['municipality'];?></td>
+                        <td><?= $tbl_patrons['province'];?> </td>
+                        </td>
+
+                      </tr>
 
 
 
-                    <?php
+                      <?php
           endwhile;
           ?>
 
-                  </tbody>
-                </table>
-                    
+                    </tbody>
+                  </table>
+
 
               </form>
-      </div>
+            </div>
     </section>
 
   </main><!-- End #main -->
@@ -287,23 +402,24 @@ $id = $conn->query($sql);
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
-    
+
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../assets/vendor/quill/quill.min.js"></script>
+  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/js/main.js"></script>
 
   <script>
     var table = document.getElementById('table');
@@ -311,18 +427,28 @@ $id = $conn->query($sql);
     for (var i = 1; i < table.rows.length; i++) {
       table.rows[i].onclick = function () {
         document.getElementById("regID").value = this.cells[0].innerHTML;
-        document.getElementById("studID").value = this.cells[1].innerHTML;
-        document.getElementById("firstName").value = this.cells[2].innerHTML;
-        document.getElementById("middleName").value = this.cells[3].innerHTML;
-        document.getElementById("lastName").value = this.cells[4].innerHTML;
-        document.getElementById("patronType").value = this.cells[5].innerHTML;
-        document.getElementById("contactNumber").value = this.cells[6].innerHTML;
-        document.getElementById("department").value = this.cells[7].innerHTML;
-        document.getElementById("section").value = this.cells[8].innerHTML;
-        document.getElementById("street").value = this.cells[9].innerHTML;
-        document.getElementById("barangay").value = this.cells[10].innerHTML;
-        document.getElementById("municipality").value = this.cells[11].innerHTML;
-        document.getElementById("province").value = this.cells[12].innerHTML;
+        document.getElementById("firstName").value = this.cells[1].innerHTML;
+        document.getElementById("middleName").value = this.cells[2].innerHTML;
+        document.getElementById("lastName").value = this.cells[3].innerHTML;
+        document.getElementById("contactNumber").value = this.cells[4].innerHTML;
+        document.getElementById("email").value = this.cells[5].innerHTML;
+        document.getElementById("idType").value = this.cells[6].innerHTML;
+        document.getElementById("idNumber").value = this.cells[7].innerHTML;
+        document.getElementById("carColor").value = this.cells[8].innerHTML;
+        document.getElementById("carModel").value = this.cells[9].innerHTML;
+        document.getElementById("carType").value = this.cells[10].innerHTML;
+        document.getElementById("manufacturer").value = this.cells[11].innerHTML;
+        document.getElementById("engineNo").value = this.cells[12].innerHTML;
+        document.getElementById("chasisNo").value = this.cells[13].innerHTML;
+        document.getElementById("yearManufactured").value = this.cells[14].innerHTML;
+        document.getElementById("category").value = this.cells[15].innerHTML;
+        document.getElementById("fuelType").value = this.cells[16].innerHTML;
+        document.getElementById("seatCapacity").value = this.cells[17].innerHTML;
+        document.getElementById("plateNumber").value = this.cells[18].innerHTML;
+        document.getElementById("street").value = this.cells[19].innerHTML;
+        document.getElementById("barangay").value = this.cells[20].innerHTML;
+        document.getElementById("municipality").value = this.cells[21].innerHTML;
+        document.getElementById("province").value = this.cells[22].innerHTML;
 
         console.log(rows[i]);
 

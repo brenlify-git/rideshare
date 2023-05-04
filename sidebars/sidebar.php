@@ -57,7 +57,7 @@
                 </a>
                 <ul id="SET-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="membership.php">
+                        <a href="../create_membership/membership.php">
                             <i class="bi bi-people" style="font-size: 15px;"></i>
                             <span>Driver's Application</span>
                         </a>

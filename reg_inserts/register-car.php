@@ -211,13 +211,13 @@ include '../config/connection.php';
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" name="carFuelType" id="department"
                       required>
-                      <option value="SUV">Gasoline</option>
-                      <option value="Coupe">Diesel</option>
-                      <option value="Crossover">Bio-diesel</option>
-                      <option value="Compact">Ethanol</option>
-                      <option value="Pickup Truck">E85</option>
-                      <option value="Grand Tourer">Methanol</option>
-                      <option value="Station Wagon">Electric</option>
+                      <option value="Gasoline">Gasoline</option>
+                      <option value="Diesel">Diesel</option>
+                      <option value="Bio-diesel">Bio-diesel</option>
+                      <option value="Ethanol">Ethanol</option>
+                      <option value="E85">E85</option>
+                      <option value="Methanol">Methanol</option>
+                      <option value="Electric">Electric</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>

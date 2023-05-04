@@ -87,15 +87,15 @@ include '../config/connection.php';
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
         <img src="../assets/img/Logo_Login.png" alt="Profile" class="rounded-circle">
-        <span class="d-none d-md-block dropdown-toggle ps-2"> Brenley Robles</span>
+        <span class="d-none d-md-block dropdown-toggle ps-2"> <?php echo $_SESSION['firstName']. " " . $_SESSION['lastName']; ?></span>
       </a><!-- End Profile Iamge Icon -->
 
 
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6>Brenley</h6>
-          <span><?php echo $_SESSION['email']; ?><br><?php echo $_SESSION['admin_type']; ?></span>
+        <h4><?php echo $_SESSION['userID']; ?></h4>
+          <span><?php echo $_SESSION['email']; ?><br><?php echo $_SESSION['Patron_Type']; ?></span>
         </li>
         <li>
           <hr class="dropdown-divider">
@@ -115,18 +115,13 @@ include '../config/connection.php';
           <hr class="dropdown-divider">
         </li>
 
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="about.php">
-            <i class="bi bi-question-circle"></i>
-            <span>About</span>
-          </a>
-        </li>
+        
         <li>
           <hr class="dropdown-divider">
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="logout.php">
+          <a class="dropdown-item d-flex align-items-center" href="../config/logout.php">
             <i class="bi bi-box-arrow-right"></i>
             <span> Sign Out </a></span>
           </a>

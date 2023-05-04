@@ -121,7 +121,7 @@ include '../config/connection.php';
 		$select = mysqli_query($conn, "SELECT * FROM user WHERE username = '$Username' AND password = '$Pass' AND userType = 'Passenger'  AND verifyStatus = 'Verified'");
 		$row = mysqli_fetch_array($select);
 
-		$select2 = mysqli_query($conn, "SELECT * FROM user WHERE username = '$Username' AND password = '$Pass' AND userType = 'Admin' AND verifyStatus = 'Verified'");
+		$select2 = mysqli_query($conn, "SELECT * FROM user WHERE username = '$Username' AND password = '$Pass' AND userType = 'Admin'");
 		$row2 = mysqli_fetch_array($select2);
 
 		if(is_array($row)){
@@ -133,6 +133,7 @@ include '../config/connection.php';
 			$_SESSION['userID'] = $row['userID'];
 			$_SESSION['email'] = $row['email'];
 			$_SESSION['messageResult'] = '';
+			$_SESSION['CarRegistrationStatus'] = '';
 			$_SESSION['messageLogin'] = 'Successfully Logged Out!';
 			header("Location:../dashboards/dashboard-passenger.php");
 		}
@@ -140,7 +141,13 @@ include '../config/connection.php';
 			$_SESSION['passenger_email'] = $row2['username'];
 			$_SESSION['passenger_password'] = $row2['password'];
 			$_SESSION['Patron_Type'] = $row2['userType'];
+			$_SESSION['firstName'] = $row2['firstName'];
+			$_SESSION['lastName'] = $row2['lastName'];
 			$_SESSION['userID'] = $row2['userID'];
+			$_SESSION['email'] = $row2['email'];
+			$_SESSION['messageResult'] = '';
+			$_SESSION['CarRegistrationStatus'] = '';
+			$_SESSION['messageLogin'] = 'Successfully Logged Out!';
 			header("Location:../dashboards/dashboard.php");
 		}
 		else{
