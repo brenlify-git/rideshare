@@ -171,7 +171,7 @@ $id = $conn->query($sql);
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">ID Number</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="idNumber" type="password" value="<?= $userSelect['idNumber'];?>" class="form-control" required id="idNumber">
+                        <input name="idNumber" type="text" value="<?= $userSelect['idNumber'];?>" class="form-control" required id="idNumber">
                       </div>
                     </div>
 
