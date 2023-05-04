@@ -51,6 +51,16 @@
                     <span>Car Registration</span>
                 </a>
             </li>
+
+      
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="../reg_inserts/registered-cars.php">
+                    <i class="bi bi-car-front-fill"></i>
+                    <span>Registered Cars</span>
+                </a>
+            </li>
+
             <!--
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../reg_inserts/registered-cars.php">

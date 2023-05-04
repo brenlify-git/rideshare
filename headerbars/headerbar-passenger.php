@@ -2,7 +2,12 @@
 
 include '../config/connection.php';
 
+// $access = 'low';
 
+// if($_SESSION['Patron_Type'] != $access){
+//   header("Location:../logins/index.php");
+//   // exit;
+// }
 ?>
 
 <!DOCTYPE html>

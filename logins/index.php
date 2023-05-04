@@ -118,7 +118,7 @@ include '../config/connection.php';
 		$Username = $_POST['Username'];
 		$Pass = $_POST['Pass'];
 
-		$select = mysqli_query($conn, "SELECT * FROM user WHERE username = '$Username' AND password = '$Pass' AND userType = 'Passenger'  AND verifyStatus = 'Verified'");
+		$select = mysqli_query($conn, "SELECT * FROM user WHERE username = '$Username' AND password = '$Pass' AND userType = 'Passenger' OR userType = 'Driver' AND verifyStatus = 'Verified'");
 		$row = mysqli_fetch_array($select);
 
 		$select2 = mysqli_query($conn, "SELECT * FROM user WHERE username = '$Username' AND password = '$Pass' AND userType = 'Admin'");
