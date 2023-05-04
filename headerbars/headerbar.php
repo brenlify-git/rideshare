@@ -1,10 +1,13 @@
 <?php
 include '../config/connection.php';
 
-// $access = 'admin';
-
-// if($_SESSION['Patron_Type'] != $access){
-//   header("Location:../logins/index.php");
+session_start();
+// if(!isset($_SESSION["userID"])){
+//     header("Location:../index.php");
+//     exit;
+// }
+// if(!isset($_SESSION["Patron_Type"])){
+//   header("Location:../dashboards/dashboard.php");
 //   // exit;
 // }
 

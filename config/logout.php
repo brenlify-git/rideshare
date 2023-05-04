@@ -1,8 +1,10 @@
 <?php
 
-session_unset();
-$_SESSION['messageLogin'] = 'Succesfully Logged Out!';
-header("Location: ../logins/index.php");
+session_start();
+$_SESSION['messageLogin'] = 'Succesfully Logged Out!';  
+if(session_destroy()){
+    header("Location:../index.php");
+    exit;
+}
 
-session_destroy();
 ?>

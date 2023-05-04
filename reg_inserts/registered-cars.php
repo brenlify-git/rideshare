@@ -4,7 +4,7 @@ include '../config/connection.php';
 
 $idset = $_SESSION['userID'];
 
-$sql = "SELECT * FROM car_description WHERE userID = '$idset' and verifyCarStatus != ''";
+$sql = "SELECT * FROM car_description WHERE userID = '$idset' AND verifyCarStatus != '' AND acceptStatus = 'accepted'";
 $id = $conn->query($sql);
 
 ?>
@@ -90,6 +90,7 @@ $id = $conn->query($sql);
                       <thead class="table-secondary" style="position:sticky; top: 0 ;">
                         <tr>
                         <th scope="col">Route</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Car Color</th>
                         <th scope="col">Car Model</th>
                         <th scope="col">Car Type</th>
@@ -111,7 +112,8 @@ $id = $conn->query($sql);
                       ?>
                         <tr>
                       
-                        <td><button class="btn btn-success" title="Create Route"><i class="bi bi-ev-front"></i></button></td>
+                        <td><button class="btn btn-primary" title="Create Route"><i class="bi bi-ev-front"></i></button></td>
+                        <td><button class="btn btn-success" title="Status"><?= $tbl_patrons['acceptStatus'];?></button></td>
                         <td><?= $tbl_patrons['carColor'];?></td>
                         <td><?= $tbl_patrons['carModel'];?></td>
                         <td><?= $tbl_patrons['carType'];?></td>

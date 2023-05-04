@@ -1,5 +1,5 @@
 <?php 
-session_start();
+// session_start();
 include '../config/connection.php';
 
 
@@ -84,8 +84,8 @@ $id = $conn->query($sql);
       <h1>Membership</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-          <li class="breadcrumb-item active">Patron's Membership</li>
+          <li class="breadcrumb-item"><a href="../dashboards/dashboard.php">Home</a></li>
+          <li class="breadcrumb-item active">Membership</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -133,11 +133,13 @@ $_SESSION['CarRegistrationStatus'] = '';
                   <label for="inputPassword5" class="form-label">First Name</label>
                   <input type="text" class="form-control" id="firstName" placeholder="Juan" name="firstName" required>
                 </div>
+
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Middle Name</label>
                   <input type="text" class="form-control" id="middleName" placeholder="Santos" name="middleName"
                     required>
                 </div>
+                
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Last Name</label>
                   <input type="text" class="form-control" id="lastName" placeholder="Dela Cruz" name="lastName"
@@ -253,7 +255,7 @@ $_SESSION['CarRegistrationStatus'] = '';
                 </div>
 
                 <div class="col-md-4">
-                  <label for="inputPassword5" class="form-label"> Car Year Manufactured <span
+                  <label for="inputPassword5" class="form-label">Year Manufactured <span
                       class="require">*</span></label>
                   <input type="date" class="form-control" id="yearManufactured" name="yearManufactured"
                     value="<?php echo isset($_POST['yearManufactured']) ? $_POST['yearManufactured'] : ''; ?>" required>
@@ -266,7 +268,7 @@ $_SESSION['CarRegistrationStatus'] = '';
                 </div>
 
                 <div class="col-md-4">
-                  <label class="col-sm-7 form-label">Car Fuel Type <span class="require">*</span></label>
+                  <label class="col-sm-7 form-label">Fuel Type <span class="require">*</span></label>
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" name="fuelType" id="fuelType"
                       required>
