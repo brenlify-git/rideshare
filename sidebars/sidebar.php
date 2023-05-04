@@ -39,13 +39,10 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="dashboard.php">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
-<lord-icon
-    src="https://cdn.lordicon.com/wrvsvaoj.json"
-    trigger="hover"
-    style="height:20px">
-</lord-icon>                    <span>Dashboard</span>
+                <a class="nav-link collapsed" href="../dashboards/dashboard.php">
+                    <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                    <lord-icon src="https://cdn.lordicon.com/wrvsvaoj.json" trigger="hover" style="height:20px">
+                    </lord-icon> <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
@@ -68,7 +65,7 @@
                             <span>Admin's Application</span>
                         </a>
                     </li>
-                    
+
                 </ul>
             </li><!-- End Tables Nav -->
 

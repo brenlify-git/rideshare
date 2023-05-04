@@ -3,7 +3,7 @@ session_start();
 include '../config/connection.php';
 
 
-$sql = "SELECT * FROM user INNER JOIN car_description ON car_description.userID = user.userID WHERE verifyCarStatus = '' AND userType = 'Passenger' OR userType = 'Driver'";
+$sql = "SELECT * FROM user INNER JOIN car_description ON car_description.userID = user.userID WHERE userType = 'Passenger' OR userType = 'Driver' AND verifyCarStatus = ''";
 
 $id = $conn->query($sql);
 
@@ -76,7 +76,7 @@ $id = $conn->query($sql);
 
   <!-- End Sidebar and Header-->
 
-
+ 
 
   <main id="main" class="main">
 
@@ -94,15 +94,17 @@ $id = $conn->query($sql);
 
 <?php
 
-if(isset($_SESSION['CarRegistrationStatus'])){
+if(($_SESSION['CarRegistrationStatus']) != ''){
 ?>
 
-<div class="alert alert-danger">
+<div class="alert alert-warning">
     <?= $_SESSION['CarRegistrationStatus']; ?>
 </div>
 <?php
-unset($_SESSION['CarRegistrationStatus']);
 }
+
+$_SESSION['CarRegistrationStatus'] = '';
+
 ?>
 
     <section class="section">
@@ -117,9 +119,14 @@ unset($_SESSION['CarRegistrationStatus']);
               <!-- Multi Columns Form -->
               <form class="row g-3" action="../reg_inserts/car-registration.php" method="post">
 
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <label for="inputEmail5" class="form-label">Registration ID</label>
-                  <input type="number" class="form-control" maxlength="11" id="regID" name="userID" required>
+                  <input type="text" class="form-control"id="regID" name="userID" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="inputEmail5" class="form-label">Car ID</label>
+                  <input type="number" class="form-control" id="carID" name="carID" required>
                 </div>
 
                 <div class="col-md-4">
@@ -175,7 +182,7 @@ unset($_SESSION['CarRegistrationStatus']);
                       name="idType" required id="idType">
                       <option value="invalid">-- Select --</option>
                       <option value="UMID">UMID</option>
-                      <option value="Driver's License">Driver's License</option>
+                      <option value="Drivers License">Driver's License</option>
                       <option value="Professional Regulation Commission (PRC) ID">Professional Regulation Commission
                         (PRC) ID</option>
                       <option value="Passport">Passport</option>
@@ -343,6 +350,7 @@ unset($_SESSION['CarRegistrationStatus']);
                         <th scope="col">Barangay</th>
                         <th scope="col">Municipality</th>
                         <th scope="col">Province</th>
+                        <th scope="col">Car ID</th>
 
                       </tr>
                     </thead>
@@ -355,7 +363,7 @@ unset($_SESSION['CarRegistrationStatus']);
                 ?>
                       <tr>
 
-                        <td><?= $tbl_patrons['userID'];?></td>
+                        <td><?= $tbl_patrons['carID'];?></td>
                         <td><?= $tbl_patrons['firstName'];?></td>
                         <td><?= $tbl_patrons['middleName'];?></td>
                         <td><?= $tbl_patrons['lastName'];?></td>
@@ -378,6 +386,7 @@ unset($_SESSION['CarRegistrationStatus']);
                         <td><?= $tbl_patrons['barangay'];?></td>
                         <td><?= $tbl_patrons['municipality'];?></td>
                         <td><?= $tbl_patrons['province'];?> </td>
+                        <td><?= $tbl_patrons['userID'];?> </td>
                         </td>
 
                       </tr>
@@ -426,7 +435,7 @@ unset($_SESSION['CarRegistrationStatus']);
 
     for (var i = 1; i < table.rows.length; i++) {
       table.rows[i].onclick = function () {
-        document.getElementById("regID").value = this.cells[0].innerHTML;
+        document.getElementById("regID").value = this.cells[23].innerHTML;
         document.getElementById("firstName").value = this.cells[1].innerHTML;
         document.getElementById("middleName").value = this.cells[2].innerHTML;
         document.getElementById("lastName").value = this.cells[3].innerHTML;
@@ -449,6 +458,7 @@ unset($_SESSION['CarRegistrationStatus']);
         document.getElementById("barangay").value = this.cells[20].innerHTML;
         document.getElementById("municipality").value = this.cells[21].innerHTML;
         document.getElementById("province").value = this.cells[22].innerHTML;
+        document.getElementById("carID").value = this.cells[0].innerHTML;
 
         console.log(rows[i]);
 

@@ -158,7 +158,7 @@ if(isset($_SESSION['status'])){
                                             required id="idType" onchange="enableIdNumber()">
                                             <option value="invalid">-- Select --</option>
                                             <option value="UMID">UMID</option>
-                                            <option value="Driver's License">Driver's License</option>
+                                            <option value="Drivers License">Driver's License</option>
                                             <option value="Professional Regulation Commission (PRC) ID">Professional Regulation Commission (PRC) ID</option>
                                             <option value="Passport">Passport</option>
                                             <option value="Social Security System">Social Security System</option>
