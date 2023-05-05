@@ -20,7 +20,7 @@
 $servername = "localhost";
 $username = "u235219407_bren2023";
 $password = "Brenlify2023";
-$database = "u235219407_infusecarpool";
+$database = "u235219407_carpool_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
