@@ -107,14 +107,14 @@ include '../config/connection.php';
               <?php 
                   if(($_SESSION['messageResult']) != ""){?>
 
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-<?php echo $_SESSION['messageResult']?>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-                     
-                    
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?php echo $_SESSION['messageResult']?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
 
-                  <?php
+
+
+              <?php
                   $_SESSION['messageResult'] = "";
                   }
               ?>

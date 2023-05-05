@@ -11,7 +11,7 @@ $carID = $_POST['carID'];
 $date = date("Y-m-d H:i:s");
 
     if($idType != "Drivers License"){
-        $_SESSION['CarRegistrationStatus'] = "Kindly update your ID, you need to have a License Number";
+        $_SESSION['CarRegistrationStatus'] = "Kindly request for changing of ID, they need to have a License Number";
         header("Location:../create_membership/membership.php");
 
     }

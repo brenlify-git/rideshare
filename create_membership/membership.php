@@ -97,8 +97,8 @@ $id = $conn->query($sql);
 if(($_SESSION['CarRegistrationStatus']) != ''){
 ?>
 
-<div class="alert alert-warning">
-    <?= $_SESSION['CarRegistrationStatus']; ?>
+<div class="alert alert-warning text-center">
+   <b><i class="bi bi-exclamation-diamond-fill"></i> <?= $_SESSION['CarRegistrationStatus']; ?></b> 
 </div>
 <?php
 }

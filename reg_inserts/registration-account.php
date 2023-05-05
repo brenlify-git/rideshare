@@ -212,7 +212,7 @@ if(isset($_SESSION['status'])){
                                         name="password" required>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary" id="register" disabled>Register </button>
+                                    <button type="submit" name="register_btn" class="btn btn-primary" id="register" disabled>Register </button>
                                     <button type="reset" class="btn btn-warning">Reset</button>
                                 </div>
                             </form><!-- End Multi Columns Form -->

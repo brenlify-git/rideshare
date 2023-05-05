@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-include 'connection.php';
+include '../config/connection.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 function sendemail_verify($firstName, $email, $verify_token){
     $mail = new PHPMailer(true);
@@ -34,7 +34,7 @@ function sendemail_verify($firstName, $email, $verify_token){
     <h2>You have already Registered with Carpool App</h2>
     <h4>Verify your email address to login with the below given link</h4>
     <br/>
-    <a href='http://localhost/rideshare/verify-email.php?token=$verify_token'>Click to verify email</a>
+    <a href='https://carpool.infuselibrary.tech/config/verify-email.php?token=$verify_token'>Click to verify email</a>
     ";
 
     $mail->Body = $email_template;
@@ -65,20 +65,22 @@ if(isset($_POST['register_btn'])){
 
     if(mysqli_num_rows($check_email_query_run)>0){
         $_SESSION['status'] = 'Email ID already exists!';
-        header("Location: registration-account.php");
+        header("Location:registration-account.php");
     }
     else{
         $registerUser = "INSERT INTO user(firstName, middleName, lastName, contactNumber, userType, email, street, barangay, municipality, province, idType, idNumber, username, password, verifyToken) VALUES ('$firstName', '$middleName', '$lastName', '$contactNumber', '$userType', '$email', '$street', '$barangay', '$municipality', '$province', '$idType', '$idNumber', '$username', '$password', '$verifyToken')";
         $registerUser_run = mysqli_query($conn, $registerUser);
 
+        
+
         if($registerUser_run){
             sendemail_verify("$firstName", "$email", "$verifyToken");
             $_SESSION['status'] = 'Registration Succesfull! Kindly check your email';
-            header("Location: registration-account.php");
+            header("Location:registration-account.php");
         }
         else{
             $_SESSION['status'] = 'Registration Failed!';
-            header("Location: registration-account.php");
+            header("Location:registration-account.php");
         }
     }
 }
