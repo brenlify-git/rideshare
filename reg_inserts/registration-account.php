@@ -154,7 +154,7 @@ if(isset($_SESSION['status'])){
                                 <div class="col-md-6" >
                                     <label class="col-sm-7 form-label">ID Type</label>
                                     <div class="col-sm-12">
-                                        <select class="form-select" aria-label="Default select example" name="userType"
+                                        <select class="form-select" aria-label="Default select example" name="idType"
                                             required id="idType" onchange="enableIdNumber()">
                                             <option value="invalid">-- Select --</option>
                                             <option value="UMID">UMID</option>
