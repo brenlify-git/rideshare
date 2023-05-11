@@ -72,14 +72,19 @@ include '../config/connection.php';
 					</div>
 
 					<div class="text-center" style="color:#345ba3">
+
+
 					<?php
+					
+					if(isset($_SESSION['messageLogin'])){
 						echo $_SESSION['messageLogin'];
+					}
+				
+			
 					?>
                     </div>
 
-					<?php
-						$_SESSION['messageLogin'] = '';
-					?>
+					
 
 				
 					<div class="container-login100-form-btn">
@@ -137,6 +142,7 @@ include '../config/connection.php';
 			$_SESSION['CarRegistrationStatus'] = '';
 			$_SESSION['messageLogin'] = 'Successfully Logged Out!';
 			header("Location:../dashboards/dashboard-passenger.php");
+			exit();
 		}
 		else if(is_array($row2)){
 			$_SESSION['passenger_email'] = $row2['username'];
@@ -148,14 +154,17 @@ include '../config/connection.php';
 			$_SESSION['email'] = $row2['email'];
 			$_SESSION['messageResult'] = '';
 			$_SESSION['CarRegistrationStatus'] = '';
+			$_SESSION['idApprovalStatus'] = '';
 			$_SESSION['messageLogin'] = 'Successfully Logged Out!';
 			header("Location:../dashboards/dashboard.php");
+			exit();
 		}
 		else{
 			$_SESSION['unameused'] = $Username;
 			$_SESSION['messageLogin'] = "Invalid login credentials, try again!";
 			header("Location:index.php");
-			
+			exit();
+
 		}
 		
 	}

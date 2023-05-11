@@ -82,7 +82,7 @@ if(isset($_SESSION['status'])){
             <h1>Registration</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Welcome</a></li>
+                    <li class="breadcrumb-item"><a href="../logins/index.php">Welcome</a></li>
                     <li class="breadcrumb-item active">Sign Up</li>
                 </ol>
             </nav>
@@ -153,7 +153,7 @@ if(isset($_SESSION['status'])){
                                 <h5 class="card-title" style="margin-top: 6px; margin-bottom:-10px">Account Verification</h5>
                                 <div class="col-md-6" >
                                     <label class="col-sm-7 form-label">ID Type</label>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12"> 
                                         <select class="form-select" aria-label="Default select example" name="idType"
                                             required id="idType" onchange="enableIdNumber()">
                                             <option value="invalid">-- Select --</option>

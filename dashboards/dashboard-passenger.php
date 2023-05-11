@@ -2,8 +2,10 @@
 
 // session_start();
 include '../config/connection.php';
+
 ?>
 
+  
 <!DOCTYPE html>
 <html lang="en">
  
@@ -32,11 +34,15 @@ include '../config/connection.php';
 <body>
 
   <!-- ======= Sidebar and Header ======= -->
+  <?php include '../headerbars/headerbar-passenger.php';?>
+  <?php include '../sidebars/sidebar-passenger.php';
+  $idLoggedUser = $_SESSION['userID'];
 
-  <?php 
-   include '../headerbars/headerbar-passenger.php';
+  $sql = "SELECT * FROM user WHERE userID = '$idLoggedUser'";
+  $idx = $conn->query($sql);
+
   ?>
-  <?php include '../sidebars/sidebar-passenger.php';?>
+
 
   <!-- End Sidebar and Header-->
 
@@ -63,6 +69,18 @@ include '../config/connection.php';
 
          <h1 style="text-align:center">Welcome <b><?= $_SESSION['firstName'] ?></b>  to your dashboard!</h1> 
 
+         <?php
+
+while($userGuide = mysqli_fetch_assoc($idx)): 
+  
+         ?>
+         <h3 style="text-align:center">Your total balance: ₱<b><?= $getUserBalance = $userGuide['uBalance'] ?></b> </h3>
+
+
+         <?php
+         
+        endwhile;
+         ?>
         </div><!-- End Right side columns -->
       </div>
     </section>

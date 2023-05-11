@@ -30,11 +30,14 @@ function sendemail_verify($firstName, $email, $verify_token){
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'User Registration';
 
+    // <a href='https://carpool.infuselibrary.tech/config/verify-email.php?token=$verify_token'>Click to verify email</a>
     $email_template = "
     <h2>You have already Registered with Carpool App</h2>
     <h4>Verify your email address to login with the below given link</h4>
     <br/>
-    <a href='https://carpool.infuselibrary.tech/config/verify-email.php?token=$verify_token'>Click to verify email</a>
+    <a href='http://localhost/rideshare/config/verify-email.php?token=$verify_token'>Click to verify email</a>
+
+
     ";
 
     $mail->Body = $email_template;

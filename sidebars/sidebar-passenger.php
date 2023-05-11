@@ -45,6 +45,28 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
+
+            <?php
+        
+        $loggedID = $_SESSION['userID'];
+
+        $countNotif2 = mysqli_query($conn, "SELECT userType AS TypeOfUser FROM user WHERE userID = '$loggedID'");
+        $row_countNotif2 = mysqli_fetch_assoc($countNotif2);
+        $checkID2 = $row_countNotif2["TypeOfUser"];
+
+        $countNotif = mysqli_query($conn, "SELECT idType AS TypeOfID FROM user WHERE userID = '$loggedID'");
+        $row_countNotif = mysqli_fetch_assoc($countNotif);
+        $checkID = $row_countNotif["TypeOfID"];
+            
+
+        $countNotif3 = mysqli_query($conn, "SELECT verifyLicenseNumber AS verifyLN FROM user WHERE userID = '$loggedID'");
+        $row_countNotif3 = mysqli_fetch_assoc($countNotif3);
+        $checkID3 = $row_countNotif3["verifyLN"];
+        
+            if($checkID == "Drivers License" && $checkID3 == "accepted" && $checkID2 == "Driver"){
+
+        ?>
+
              <li class="nav-item">
                 <a class="nav-link collapsed" href="../reg_inserts/register-car.php">
                     <i class="bi bi-people"></i>
@@ -52,14 +74,45 @@
                 </a>
             </li>
 
-      
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../reg_inserts/registered-cars.php">
                     <i class="bi bi-car-front-fill"></i>
+          
                     <span>Registered Cars</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="../trans_model/cashout.php">
+                    <i class="bi bi-car-front-fill"></i>
+          
+                    <span>Cash Out Funds</span>
+                </a>
+            </li>
+            
+
+            <?php
+                }
+
+                if($checkID2 == "Passenger"){
+
+                    ?>
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="../trans_model/cashin.php">
+                    <i class="bi bi-car-front-fill"></i>
+          
+                    <span>Mi Ticket and Wallets</span>
+                </a>
+            </li>
+
+            <?php
+                }
+                ?>
+
+
 
             <!--
             <li class="nav-item">

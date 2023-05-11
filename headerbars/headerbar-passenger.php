@@ -3,14 +3,13 @@
 include '../config/connection.php';
 
 session_start();
-// if(!isset($_SESSION["userID"])){
-//     header("Location:../index.php");
-//      exit;
-// }
-// if(!isset($_SESSION["Patron_Type"])){
-//   header("Location:../dashboards/dashboard-passenger.php");
-//   //  exit;
-// }
+
+
+if(!isset($_SESSION['passenger_email']) && $_SESSION['Patron_Type'] != 'Passenger'){
+  header("Location:../logins/index.php");
+  exit;
+}
+
 
 ?>
 

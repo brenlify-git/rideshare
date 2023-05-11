@@ -50,7 +50,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#SET-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-people"></i><span>Application</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-people"></i><span>Application & Approval</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="SET-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -60,11 +60,25 @@
                         </a>
                     </li>
                     <li>
+                        <a href="../create_membership/id-approval.php">
+                            <i class="bi bi-person-vcard" style="font-size: 15px;"></i>
+                            <span>ID Approval</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../process/approve-cashin.php">
+                            <i class="bi bi-person-vcard" style="font-size: 15px;"></i>
+                            <span>Cash In Approval</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="admin-membership.php">
                             <i class="bi bi-person-add" style="font-size: 15px;"></i>
                             <span>Admin's Application</span>
                         </a>
-                    </li>
+                    </li>   
 
                 </ul>
             </li><!-- End Tables Nav -->

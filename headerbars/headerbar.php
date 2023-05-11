@@ -1,21 +1,28 @@
 <?php
 include '../config/connection.php';
 
-session_start();
-// if(!isset($_SESSION["userID"])){
-//     header("Location:../index.php");
-//     exit;
-// }
-// if(!isset($_SESSION["Patron_Type"])){
-//   header("Location:../dashboards/dashboard.php");
-//   // exit;
-// }
+date_default_timezone_set('Asia/Manila');
+$date = date("Y-m-d");
 
+$sql = "SELECT * FROM car_description INNER JOIN user ON car_description.userID = user.userID WHERE acceptStatus = 'pending' AND verifyCarStatus = ''";
+$notif = $conn->query($sql);
+
+
+$countNotif = mysqli_query($conn, "SELECT COUNT(*) AS notifCount FROM car_description WHERE acceptStatus = 'pending' AND verifyCarStatus = ''");
+$row_countNotif = mysqli_fetch_assoc($countNotif);
+$row_countNotification = $row_countNotif["notifCount"];
+
+
+session_start();
+if(!isset($_SESSION['passenger_email']) && $_SESSION['Patron_Type'] != 'Driver'){
+  header("Location:../logins/index.php");
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>  
  
 
   <!-- Google Fonts -->
@@ -39,55 +46,81 @@ session_start();
   <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-  <a href="dashboard.php" class="logo d-flex align-items-center">
+  <a href="../dashboards/dashboard.php" class="logo d-flex align-items-center">
     <img src="../assets/img/Logo Only.png" alt="">
     <span class="d-none d-lg-block">Rideshare Carpool</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-
-<nav class="header-nav ms-auto">
+<nav class="header-nav ms-auto" >
   <ul class="d-flex align-items-center">
 
 
 
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown" >
 
-      <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+      <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" >
         <i class="bi bi-bell"></i>
         
-         
+          <?php
+          if($row_countNotification == 0){
+            
+          }
+          else{
+            echo '<span class="badge bg-primary badge-number">';
+            echo $row_countNotification;
+            echo '</span>';
+          }
+          ?>
         
       </a><!-- End Notification Icon -->
 
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications overflow-auto" style="max-height: 300px;">
-        <li class="dropdown-header ">
+      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications overflow-auto" style="max-height: 300px;" >
+        <li class="dropdown-header"  style="overflow:hidden;">
           
 
+          <?php
+          if($row_countNotification == 0){
+            echo "Nothing to accept here.";
+           
+          }
+          else{
+            echo 'You have <span style="color:#026ab2; font-weight:bold">';
+            echo $row_countNotification;
+            echo '</span> new notifications';
+          }
+          ?>
          
         </li>
         <li>
           <hr class="dropdown-divider">
         </li>
 
-      
+        <?php
+            while($rows = mysqli_fetch_assoc($notif)):   
+        ?>
 
         <li class="notification-item">
           <i class="bi bi-exclamation-circle text-warning"></i>
-          
+          <div>
+            <h4>Registration Request</h4>
+            <p><?=$rows['firstName']; ?> with an id <?= $rows['carID'];?> has a pending request</p>
+           <button class="btn btn-warning text-dark col-md-12" style="color:aliceblue"><a style="text-decoration:none; color:aliceblue;" href="../create_membership/membership.php">Accept Now</a></button> 
+          </div>
         </li>
 
         <li>
           <hr class="dropdown-divider">
         </li>
-=
 
-       
+        <?php
+        endwhile;
+        ?>
+          </ul><!-- End Notification Dropdown Items -->
 
-      </ul>
+        </li><!-- End Notification Nav -->
 
-    </li>
 
   
 
