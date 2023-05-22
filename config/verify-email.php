@@ -12,17 +12,17 @@ if(isset($_GET['token'])){
 
       if($row['verifyStatus'] == "Not Yet Verified"){
             $clickedToken = $row['verifyToken'];
-            $updateQuery = "UPDATE user SET verifyStatus = 'Verified' WHERE verifyToken = '$clickedToken' LIMIT 1";
+            $updateQuery = "UPDATE user SET uBalance = '10.00', verifyStatus = 'Verified' WHERE verifyToken = '$clickedToken' LIMIT 1";
             $updateQuery_Run = mysqli_query($conn, $updateQuery);
 
             if($updateQuery_Run){
                 $_SESSION['status'] = "Account has been verified";
-                header("Location: ../logins/index.php");
+                header("Location: ../reg_inserts/registration-account.php");
                 exit(0);
             }
             else{
                 $_SESSION['status'] = "Verification Failed!";
-                header("Location: ../logins/index.php");
+                header("Location: ../reg_inserts/registration-account.php");
                 exit(0);
             }
       }

@@ -71,10 +71,15 @@ include '../config/connection.php';
 
          <?php
 
-while($userGuide = mysqli_fetch_assoc($idx)): 
+        while($userGuide = mysqli_fetch_assoc($idx)): 
+          $money = $userGuide['uBalance'];
+
+          $formatted_money = number_format($money, 2, '.', ',');
+          $formatted_money_with_currency = '₱' . $formatted_money;
+
   
          ?>
-         <h3 style="text-align:center">Your total balance: ₱<b><?= $getUserBalance = $userGuide['uBalance'] ?></b> </h3>
+         <h3 style="text-align:center">Your total balance: <b><?= $formatted_money_with_currency ?></b> </h3>
 
 
          <?php

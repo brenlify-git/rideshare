@@ -110,31 +110,22 @@ include '../config/connection.php';
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
 
-
-
               <?php
                   $_SESSION['messageResult'] = "";
                   }
               ?>
 
-
-
               <!-- Multi Columns Form -->
               <form class="row g-3" action="../process/cashin-process.php" method="post">
 
-                <div class="col-md-3">
-                  <label for="inputPassword5" class="form-label">Sender Number <span class="require">*</span></label>
-                  <input type="text" class="form-control" maxlength="11" id="inputPassword5" name="senderNum" value="" required>
-                </div>
+              <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label">GCash Number <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="contactNumber" placeholder="09770191818" pattern="09[0-9]{9}"
+                      maxlength="11" name="senderNum" required>
+              </div>
 
-                <div class="col-md-3">
-                  <label for="inputPassword5" class="form-label">Receiver Number <span
-                      class="require">*</span></label>
-                  <input type="text" class="form-control" maxlength="11" id="inputPassword5" name="receiverNum" value="" required>
-                </div>
-
-                <div class="col-md-2" >
-                    <label class="col-sm-7 form-label">Amount</label>
+                <div class="col-md-4" >
+                    <label class="col-sm-7 form-label">Amount <span class="require">*</span></label>
                     <div class="col-sm-12">
                         <select class="form-select" aria-label="Default select example" name="amount"
                             required id="idType">
@@ -142,14 +133,13 @@ include '../config/connection.php';
                             <option value="100.00">100</option>
                             <option value="250.00">250</option>
                             <option value="500.00">500</option>
-                          
                         </select>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Reference No. <span class="require">*</span></label>
-                  <input type="number" max="99999999" class="form-control" id="inputPassword5" name="refNum" value="" required>
+                  <input type="text"  class="form-control" id="inputPassword5" name="refNum" value="" required>
                 </div>
 
 

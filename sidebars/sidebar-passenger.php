@@ -32,6 +32,8 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
@@ -85,7 +87,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../trans_model/cashout.php">
-                    <i class="bi bi-car-front-fill"></i>
+                <i class="bi bi-cash-coin"></i>
           
                     <span>Cash Out Funds</span>
                 </a>
@@ -95,22 +97,20 @@
             <?php
                 }
 
-                if($checkID2 == "Passenger"){
+               
 
                     ?>
 
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../trans_model/cashin.php">
-                    <i class="bi bi-car-front-fill"></i>
+                <i class="bi bi-cash"></i>
           
-                    <span>Mi Ticket and Wallets</span>
+                    <span>Cash In Funds</span>
                 </a>
             </li>
 
-            <?php
-                }
-                ?>
+         
 
 
 

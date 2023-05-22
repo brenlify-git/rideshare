@@ -17,17 +17,17 @@ function sendemail_verify($firstName, $email, $verify_token){
     $mail->SMTPAuth = true; 
 
     $mail->Host = 'smtp.gmail.com'; 
-    $mail->Username = 'brenlify.mail@gmail.com';
-    $mail->Password = 'ruvatbfaopgafclp';
+    $mail->Username = 'contact.ridesharecarpool@gmail.com';
+    $mail->Password = 'ahyobvzplpflgpmd';
 
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;   
     
-    // $mail->AddCustomHeader("Importance: High");
-    $mail->setFrom('brenlify.mail@gmail.com', 'Carpool App');
+
+    $mail->setFrom('contact.ridesharecarpool@gmail.com', 'Rideshare Carpool');
     $mail->addAddress($email);
 
-    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->isHTML(true);
     $mail->Subject = 'User Registration';
 
     // <a href='https://carpool.infuselibrary.tech/config/verify-email.php?token=$verify_token'>Click to verify email</a>
@@ -36,13 +36,11 @@ function sendemail_verify($firstName, $email, $verify_token){
     <h4>Verify your email address to login with the below given link</h4>
     <br/>
     <a href='http://localhost/rideshare/config/verify-email.php?token=$verify_token'>Click to verify email</a>
-
-
     ";
 
     $mail->Body = $email_template;
     $mail->send();
-   // echo 'Message has been sent!';
+   
 }
 
 if(isset($_POST['register_btn'])){
@@ -62,7 +60,6 @@ if(isset($_POST['register_btn'])){
     $password = $_POST['password'];
     $verifyToken = md5(rand());
 
-
     $check_email_query = "SELECT email FROM user WHERE email = '$email' LIMIT 1";
     $check_email_query_run = mysqli_query($conn, $check_email_query);
 
@@ -74,7 +71,6 @@ if(isset($_POST['register_btn'])){
         $registerUser = "INSERT INTO user(firstName, middleName, lastName, contactNumber, userType, email, street, barangay, municipality, province, idType, idNumber, username, password, verifyToken) VALUES ('$firstName', '$middleName', '$lastName', '$contactNumber', '$userType', '$email', '$street', '$barangay', '$municipality', '$province', '$idType', '$idNumber', '$username', '$password', '$verifyToken')";
         $registerUser_run = mysqli_query($conn, $registerUser);
 
-        
 
         if($registerUser_run){
             sendemail_verify("$firstName", "$email", "$verifyToken");

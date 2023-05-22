@@ -120,32 +120,23 @@ include '../config/connection.php';
 
 
               <!-- Multi Columns Form -->
-              <form class="row g-3" action=" " method="post">
+              <form class="row g-3" action="../process/cashout-process.php" method="post">
 
-                <div class="col-md-4">
-                  <label for="inputPassword5" class="form-label">Receiver Number <span
+                <div class="col-md-6">
+                  <label for="inputPassword5" class="form-label">GCash Number <span
                       class="require">*</span></label>
-                  <input type="text" class="form-control" maxlength="11" id="inputPassword5" name="receiverNum" value="" required>
+                  <input type="text" class="form-control" maxlength="11" id="inputPassword5" name="gcashNo" value="" autocomplete="off" required>
                 </div>
 
-                <div class="col-md-4" >
-                    <label class="col-sm-7 form-label">Amount</label>
-                    <div class="col-sm-12">
-                        <select class="form-select" aria-label="Default select example" name="amount"
-                            required id="idType">
-                            <option value="50.00">50</option>
-                            <option value="100.00">100</option>
-                            <option value="250.00">250</option>
-                            <option value="500.00">500</option>
-                          
-                        </select>
-                    </div>
+                <div class="col-md-6">
+                  <label for="inputPassword5" class="form-label">Amount to Withdraw <span class="require">*</span></label>
+                  <input type="text" pattern="^\d+(\.\d+)?$" class="form-control" id="inputPassword5" name="amount" value="" required>
+                  <small>Please enter a valid number.</small>
                 </div>
 
-                <div class="col-md-4">
-                  <label for="inputPassword5" class="form-label">Reference No. <span class="require">*</span></label>
-                  <input type="number" max="99999999" class="form-control" id="inputPassword5" name="refNum" value="" required>
-                </div>
+
+                
+
 
 
 

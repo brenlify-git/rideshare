@@ -8,9 +8,6 @@ include '../config/connection.php';
 // $checkStat = $conn->query($stat);
 
 
-// $countStudents = mysqli_query($conn, "SELECT car_driver.licenseNumber AS LicenseNumber FROM car_driver INNER JOIN user ON user.userID = car_driver.userID WHERE car_driver.userID = $usersID");
-// $row_countStud = mysqli_fetch_assoc($countStudents);
-// $countStud = $row_countStud["LicenseNumber"];
 
 
 
@@ -62,6 +59,16 @@ include '../config/connection.php';
   <?php include '../headerbars/headerbar-passenger.php';?>
   <?php include '../sidebars/sidebar-passenger.php';?>
 
+  <?php
+  $userLoggedIn = $_SESSION['userID'];
+
+  $countStudents = mysqli_query($conn, "SELECT COUNT(*) AS countRegistered FROM car_description WHERE  acceptStatus = 'accepted' AND verifyCarStatus != '' AND userID = '$userLoggedIn'");
+  $row_countStud = mysqli_fetch_assoc($countStudents);
+  $countRegisteredCars = $row_countStud["countRegistered"];
+
+
+  ?>
+
   <!-- End Sidebar and Header-->
 
   <main id="main" class="main">
@@ -100,7 +107,7 @@ include '../config/connection.php';
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">LTO COR Details</h5>
+              <h5 class="card-title">LTO COR Details <?= $countRegisteredCars?></h5>
 
               <?php 
                   if(($_SESSION['messageResult']) != ""){?>

@@ -99,12 +99,12 @@ $_SESSION['CarRegistrationStatus'] = '';
               <form class="row g-3" action="../reg_inserts/car-registration.php" method="post">
 
                 <div class="col-md-6">
-                  <label for="inputEmail5" class="form-label">Registration ID</label>
+                  <label for="inputEmail5" class="form-label">User ID</label>
                   <input type="text" class="form-control"id="regID" name="userID" required>
                 </div>
 
                 <div class="col-md-6">
-                  <label for="inputEmail5" class="form-label">Car ID</label>
+                  <label for="inputEmail5" class="form-label">Registration ID</label>
                   <input type="number" class="form-control" id="carID" name="carID" required>
                 </div>
 

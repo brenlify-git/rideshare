@@ -4,8 +4,7 @@ include '../config/connection.php';
 
 $userID = $_SESSION['userID'];
 $transType = "Cash In";
-$transFrom = $_POST['senderNum'];
-$transTo = $_POST['receiverNum'];
+$GCashNo = $_POST['senderNum'];
 $amount = $_POST['amount'];
 $refNum = $_POST['refNum'];
 
@@ -29,13 +28,13 @@ $conFee = $amount - $ticketAmount;
 $confirmStatus = 'pending';
 
 
-$sqlIns2 = "INSERT INTO cashin_cashout(userID, transType, transFrom, transTo, refNum, amount, proFee, conFee, confirmStatus)
-VALUES ('$userID', '$transType', '$transFrom', '$transTo', '$refNum', '$amount', '$proFee', '$conFee',  '$confirmStatus')";
+$sqlIns2 = "INSERT INTO cashin_cashout(userID, transType, GCashNumber, refNum, amount, proFee, conFee, confirmStatus)
+VALUES ('$userID', '$transType', '$GCashNo', '$refNum', '$amount', '$proFee', '$conFee',  '$confirmStatus')";
 $result2=mysqli_query($conn, $sqlIns2);
 
 
 if($result2){
-    $_SESSION['messageResult'] = "Registration submitted!";
+    $_SESSION['messageResult'] = "Cashin Request Submitted!";
     header("Location:../trans_model/cashin.php");
 }else{
     die(mysqli_error($conn));

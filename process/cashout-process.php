@@ -3,43 +3,56 @@ session_start();
 include '../config/connection.php';
 
 $userID = $_SESSION['userID'];
-$transType = "Cash In";
-$transFrom = $_POST['senderNum'];
-$transTo = $_POST['receiverNum'];
-$amount = $_POST['amount'];
-$refNum = $_POST['refNum'];
+$transType = "Cash Out";
+$GCashNo = $_POST['gcashNo'];
+$amountReq = $_POST['amount'];
+$refNum = "";
 
-if ($amount == '50'){
-    $ticketAmount = 40;
-}
-else if ($amount == '100'){
-    $ticketAmount = 40;
-}
-else if ($amount == '250'){
-    $ticketAmount = 200;
-}
-else if ($amount == '500'){
-    $ticketAmount = 450;
-}
+$sql = "SELECT * FROM user WHERE userID = '$userID'";
+$idx = $conn->query($sql);
 
-$proFee = '0';
+$amount = $amountReq;
 
-$conFee = $amount - $ticketAmount;
+$thousandCount = floor($amount / 1000); 
 
+$remainder = $amount % 1000; 
+
+if ($remainder > 0 && $remainder <= 999) {
+    $thousandCount += 1;
+    $thousandCount *= 20;
+}
+else{
+    $thousandCount *= 20;
+}
+$proFee = $thousandCount;
+$conFee = '0.00';
 $confirmStatus = 'pending';
 
 
-$sqlIns2 = "INSERT INTO cashin_cashout(userID, transType, transFrom, transTo, refNum, amount, proFee, conFee, confirmStatus)
-VALUES ('$userID', '$transType', '$transFrom', '$transTo', '$refNum', '$amount', '$proFee', '$conFee',  '$confirmStatus')";
-$result2=mysqli_query($conn, $sqlIns2);
+$amountNeed = $thousandCount + $amountReq;
 
+while($userGuide = mysqli_fetch_assoc($idx)): 
+$getUserBalance = $userGuide['uBalance'];
+endwhile;
 
-if($result2){
-    $_SESSION['messageResult'] = "Registration submitted!";
-    header("Location:../trans_model/cashin.php");
-}else{
-    die(mysqli_error($conn));
+if ($amountNeed > $getUserBalance){
+    $_SESSION['messageResult'] = "Insufficient Fund!";
+    header("Location:../trans_model/cashout.php");
 }
+else{
+    $sqlIns2 = "INSERT INTO cashin_cashout(userID, transType, GCashNumber, refNum, amount, proFee, conFee, confirmStatus)
+    VALUES ('$userID', '$transType', '$GCashNo', '$refNum', '$amountReq', '$proFee', '$conFee',  '$confirmStatus')";
+    $result2=mysqli_query($conn, $sqlIns2);
+
+    $_SESSION['messageResult'] = "Cashout Request Submitted!";
+    header("Location:../trans_model/cashout.php");
+}
+
+
+
+
+
+
 
 
 ?>

@@ -108,7 +108,7 @@ $_SESSION['idApprovalStatus'] = '';
                   <input type="text" class="form-control"  id="userID" name="userID" value="" required>
                 </div>
 
-              <div class="col-md-12">
+              <div class="col-md-6">
                   <label for="inputPassword5" class="form-label">Receipient's Name  <span class="require">*</span></label>
                   <input type="text" class="form-control"  id="fullName" name="fullName" value="" required>
                 </div>
@@ -118,34 +118,30 @@ $_SESSION['idApprovalStatus'] = '';
                   <input type="text" class="form-control" maxlength="11" id="senderNum" name="senderNum" value="" required>
                 </div>
 
+
                 <div class="col-md-6">
-                  <label for="inputPassword5" class="form-label">Receiver Number <span
-                      class="require">*</span></label>
-                  <input type="text" class="form-control" maxlength="11" id="recieverNum" name="receiverNum" value="" required>
+                  <label for="inputPassword5" class="form-label">Withdraw Amount <span class="require">*</span></label>
+                  <input type="text" pattern="^\d+(\.\d+)?$" class="form-control" id="amount" name="amount" value="" required>
                 </div>
 
-                <div class="col-md-4" >
-                    <label class="col-sm-7 form-label">Amount</label>
-                    <div class="col-sm-12">
-                        <select class="form-select" aria-label="Default select example" name="amount"
-                            required id="amount">
-                            <option value="50.00">50</option>
-                            <option value="100.00">100</option>
-                            <option value="250.00">250</option>
-                            <option value="500.00">500</option>
-                          
-                        </select>
-                    </div>
+                <div class="col-md-6">
+                  <label for="inputPassword5" class="form-label">Transaction Type <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="transType" name="transType" value="" required>
                 </div>
 
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Reference No. <span class="require">*</span></label>
-                  <input type="number" max="99999999" class="form-control" id="refNum" name="refNum" value="" required>
+                  <input type="number" class="form-control" id="refNum" name="refNum" value="" required>
                 </div>
 
                 <div class="col-md-4">
                   <label for="inputPassword5" class="form-label">Conversion Fee <span class="require">*</span></label>
                   <input type="number" max="99999999" class="form-control" id="conFee" name="conFee" value="" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="inputPassword5" class="form-label">Processing Fee <span class="require">*</span></label>
+                  <input type="number" max="99999999" class="form-control" id="proFee" name="proFee" value="" required>
                 </div>
 
                 <div class="text-center buttonsResponse">
@@ -171,7 +167,7 @@ $_SESSION['idApprovalStatus'] = '';
               <h2 class="card-title ">Driver's Membership Request | <span>Subject to approval</span></h2>
 
 
-              <form name="excel.php" method="post">
+              
 
                 <div class="overflow-auto mt-4">
 
@@ -184,11 +180,11 @@ $_SESSION['idApprovalStatus'] = '';
                         <th scope="col">User ID</th>
                         <th scope="col">Recepients Name</th>
                         <th scope="col">Transaction Type</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
+                        <th scope="col">GCash Number</th>
                         <th scope="col">Reference Number</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Conversion Fee</th>
+                        <th scope="col">Processing Fee</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -204,11 +200,11 @@ $_SESSION['idApprovalStatus'] = '';
                         <td><?= $tbl_patrons['userID'];?></td>
                         <td><?= $tbl_patrons['firstName'] . " " . $tbl_patrons['lastName']?></td>
                         <td><?= $tbl_patrons['transType'];?></td>
-                        <td><?= $tbl_patrons['transFrom'];?></td>
-                        <td><?= $tbl_patrons['transTo'];?></td>
+                        <td><?= $tbl_patrons['GCashNumber'];?></td>
                         <td><?= $tbl_patrons['refNum'];?></td>
                         <td><?= $tbl_patrons['amount'];?></td>
                         <td><?= $tbl_patrons['conFee'];?></td>
+                        <td><?= $tbl_patrons['proFee'];?></td>
                         </td>
 
                       </tr>
@@ -223,7 +219,7 @@ $_SESSION['idApprovalStatus'] = '';
                   </table>
 
 
-              </form>
+          
             </div>
     </section>
 
@@ -249,12 +245,12 @@ $_SESSION['idApprovalStatus'] = '';
         document.getElementById("transID").value = this.cells[0].innerHTML;
         document.getElementById("userID").value = this.cells[1].innerHTML;
         document.getElementById("fullName").value = this.cells[2].innerHTML;
+        document.getElementById("transType").value = this.cells[3].innerHTML;
         document.getElementById("senderNum").value = this.cells[4].innerHTML;
-        document.getElementById("recieverNum").value = this.cells[5].innerHTML;
-        document.getElementById("refNum").value = this.cells[6].innerHTML;
-        document.getElementById("amount").value = this.cells[7].innerHTML;
-        document.getElementById("conFee").value = this.cells[8].innerHTML;
-      
+        document.getElementById("refNum").value = this.cells[5].innerHTML;
+        document.getElementById("amount").value = this.cells[6].innerHTML;
+        document.getElementById("conFee").value = this.cells[7].innerHTML;
+        document.getElementById("proFee").value = this.cells[8].innerHTML;
 
         console.log(rows[i]);
 
