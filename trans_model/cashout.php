@@ -110,14 +110,10 @@ include '../config/connection.php';
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
 
-
-
               <?php
                   $_SESSION['messageResult'] = "";
                   }
               ?>
-
-
 
               <!-- Multi Columns Form -->
               <form class="row g-3" action="../process/cashout-process.php" method="post">
@@ -130,16 +126,10 @@ include '../config/connection.php';
 
                 <div class="col-md-6">
                   <label for="inputPassword5" class="form-label">Amount to Withdraw <span class="require">*</span></label>
-                  <input type="text" pattern="^\d+(\.\d+)?$" class="form-control" id="inputPassword5" name="amount" value="" required>
+                  <input type="number" class="form-control" id="inputPassword5" name="amount" value="" min="1" required>
                   <small>Please enter a valid number.</small>
                 </div>
-
-
-                
-
-
-
-
+              
                 <div class="text-center" style="margin-top: 30px;">
                   <button type="submit" class="btn btn-success col-md-3"><i class="bi bi-car-front-fill"></i>
                     Request for Approval</button>

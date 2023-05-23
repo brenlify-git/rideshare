@@ -48,6 +48,27 @@ session_start();
 
     <script src="https://code.jquery.com/jquery-1.8.2.js"></script>
 
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#username').keyup(function(){
+            $.post("avail-username.php", 
+            {username: $('#username').val(),
+            
+            }, function(response){
+                $('#usernameResult').fadeOut();
+                setTimeout("Userresult('usernameResult','"+escape(response)+"')",350);
+            });
+                return false;
+        });
+    });
+
+    function Userresult(id, response){
+        $('#usernameLoading').hide();
+        $('#'+id).html(unescape(response));
+        $('#'+id).fadeIn();
+    }
+</script>
+
 
 </head>
 
@@ -203,8 +224,10 @@ if(isset($_SESSION['status'])){
 
                                 <div class="col-md-6">
                                     <label for="inputAddress5" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="province" placeholder="Juan Dela Cruz"
+                                    <input type="text" class="form-control" id="username" placeholder="Juan Dela Cruz"
                                         name="username" required>
+                                        <span id="usernameLoading"></span>
+                            <span id="usernameResult"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputAddress5" class="form-label">Password</label>

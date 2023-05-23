@@ -12,7 +12,7 @@ if ($amount == '50'){
     $ticketAmount = 40;
 }
 else if ($amount == '100'){
-    $ticketAmount = 40;
+    $ticketAmount = 80;
 }
 else if ($amount == '250'){
     $ticketAmount = 200;

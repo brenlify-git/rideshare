@@ -2,16 +2,31 @@
 
 include '../config/connection.php';
 
+date_default_timezone_set('Asia/Manila');
+$currentDate = date('Y-m-d');
 
-$sql = "SELECT * FROM cashin_cashout INNER JOIN user ON cashin_cashout.userID = user.userID WHERE transType = 'Cash Out' AND cashin_cashout.confirmStatus = 'accepted' ";
+
+$sql = "SELECT * FROM cashin_cashout
+INNER JOIN user ON cashin_cashout.userID = user.userID
+WHERE transType = 'Cash Out'
+  AND cashin_cashout.confirmStatus = 'accepted'
+  AND DATE(transTime) = '$currentDate'";
 
 $id = $conn->query($sql);
 
-$countAmount = mysqli_query($conn, "SELECT SUM(amount) AS totalAmount  FROM cashin_cashout WHERE transType = 'Cash Out' AND cashin_cashout.confirmStatus = 'accepted' ");
+$countAmount = mysqli_query($conn, "SELECT SUM(amount) AS totalAmount FROM cashin_cashout
+        INNER JOIN user ON cashin_cashout.userID = user.userID
+        WHERE transType = 'Cash Out'
+          AND cashin_cashout.confirmStatus = 'accepted'
+          AND DATE(transTime) = '$currentDate'");
 $row_countAmount = mysqli_fetch_assoc($countAmount);
 $totalAmountCount = $row_countAmount["totalAmount"];
 
-$countConFee= mysqli_query($conn, "SELECT SUM(proFee) AS totalConFee  FROM cashin_cashout WHERE transType = 'Cash Out' AND cashin_cashout.confirmStatus = 'accepted' ");
+$countConFee= mysqli_query($conn, "SELECT SUM(proFee) AS totalConFee  FROM cashin_cashout
+INNER JOIN user ON cashin_cashout.userID = user.userID
+WHERE transType = 'Cash Out'
+  AND cashin_cashout.confirmStatus = 'accepted'
+  AND DATE(transTime) = '$currentDate'");
 $row_countConFee = mysqli_fetch_assoc($countConFee);
 $totalConFee = $row_countConFee["totalConFee"];
 

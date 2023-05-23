@@ -64,7 +64,7 @@ include '../config/connection.php';
       <div class="row">
 
        <!-- Left side columns -->
-       <div class="col-lg-12">
+       <div class="col-lg-12 ">
           <div class="row">
 
          <h1 style="text-align:center">Welcome <b><?= $_SESSION['firstName'] ?></b>  to your dashboard!</h1> 
@@ -86,6 +86,87 @@ include '../config/connection.php';
          
         endwhile;
          ?>
+
+         <br> <br>
+
+         <div class="col-lg-12">
+          <div class="row mt-4">
+
+         <!-- Sales Card -->
+         <div class="col-xxl-4 col-md-12">
+              <div class="card info-card sales-card">
+
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Available Book <span>| As of Today</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-journal-check"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6> 245 </h6>
+                      <span class="text-success small pt-1 fw-bold">ADMIN</span> <span
+                        class="text-muted small pt-2 ps-1">VIEW</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Sales Card -->
+          <div class="col-xxl-4 col-md-12">
+              <div class="card info-card sales-card">
+
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Available Book <span>| As of Today</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-journal-check"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6> 245 </h6>
+                      <span class="text-success small pt-1 fw-bold">ADMIN</span> <span
+                        class="text-muted small pt-2 ps-1">VIEW</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+            <!-- Sales Card -->
+          <div class="col-xxl-4 col-md-12">
+              <div class="card info-card sales-card">
+
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Available Book <span>| As of Today</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-journal-check"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6> 245 </h6>
+                      <span class="text-success small pt-1 fw-bold">ADMIN</span> <span
+                        class="text-muted small pt-2 ps-1">VIEW</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+          </div>
+            </div>
         </div><!-- End Right side columns -->
       </div>
     </section>
